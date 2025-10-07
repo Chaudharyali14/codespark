@@ -1,0 +1,145 @@
+// =============================================
+// Prisma Schema for CodeSpark Project
+// Database: MySQL
+// =============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ======================
+// TABLE: Course
+// ======================
+model Course {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  students    Student[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ======================
+// TABLE: Vision
+// ======================
+model Vision {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Mission
+// ======================
+model Mission {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Service
+// ======================
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Student
+// ======================
+model Student {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+// ======================
+// TABLE: Message
+// ======================
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+// ======================
+// TABLE: Admin
+// ======================
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Project
+// ======================
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  projectUrl  String?
+  mainImage   String?
+  video       String?
+  media       Media[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Media
+// ======================
+model Media {
+  id        Int      @id @default(autoincrement())
+  type      String   // "IMAGE" or "VIDEO"
+  url       String
+  projectId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+// ======================
+// TABLE: SiteSettings
+// ======================
+model SiteSettings {
+  id         Int      @id @default(autoincrement())
+  logo       String
+  heroImage1 String?
+  heroImage2 String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// ======================
+// TABLE: Testimonial
+// ======================
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  quote     String   @db.Text
+  author    String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

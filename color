@@ -1,0 +1,11 @@
+| Role            | Color                                      | Hex                         | Usage                           |
+| --------------- | ------------------------------------------ | --------------------------- | ------------------------------- |
+| Primary (Brand) | `#001F3F`                                  | Dark navy                   | Navbar, header, hero background |
+| Secondary       | `#0A2E5C`                                  | Lighter navy                | Cards, section backgrounds      |
+| Accent 1        | `#00BFFF`                                  | Cyan blue                   | Buttons, links, highlights      |
+| Accent 2        | `#38BDF8`                                  | Sky blue                    | Hover, icons, small borders     |
+| Neutral Light   | `#F8FAFC`                                  | Light gray                  | Page background                 |
+| Neutral Dark    | `#1E293B`                                  | Dark gray                   | Text or footer background       |
+| Text Primary    | `#FFFFFF` (on dark) / `#0F172A` (on light) | For readability             |                                 |
+| Border Subtle   | `#E2E8F0`                                  | Divider lines, soft borders |                                 |
+yeh color kar do
