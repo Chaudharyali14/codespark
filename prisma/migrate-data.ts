@@ -44,6 +44,8 @@ async function main() {
       });
       console.log('Successfully created site settings.');
     }
+
+
   } catch (error) {
     console.error('Failed to migrate data:', error);
   } finally {

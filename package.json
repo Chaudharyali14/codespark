@@ -7,10 +7,15 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "prisma generate && prisma db push && prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "formidable": "^3.5.4",
     "next": "15.5.4",
