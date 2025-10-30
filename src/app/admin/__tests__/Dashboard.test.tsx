@@ -3,7 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Dashboard from '../Dashboard';
 
 // Mock the chart component
-jest.mock('../components/Charts/StudentTrendChart', () => () => <div>StudentTrendChart</div>);
+jest.mock('../components/Charts/StudentTrendChart', () => function MockedStudentTrendChart() {
+  return <div>StudentTrendChart</div>;
+});
 
 global.fetch = jest.fn((url) => {
   if (url === '/api/admin/summary') {

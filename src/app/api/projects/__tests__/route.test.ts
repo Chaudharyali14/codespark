@@ -24,7 +24,7 @@ jest.mock('@/lib/prisma', () => ({
 
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (data, init) => {
+    json: (data: unknown, init?: { status?: number }) => {
       return {
         status: init?.status || 200,
         json: () => Promise.resolve(data),
@@ -60,7 +60,7 @@ describe('/api/projects', () => {
 
         try {
             await GET();
-        } catch (error) {
+        } catch (error: Error) {
             expect(error.name).toBe('DatabaseError');
             expect(error.message).toBe('Failed to fetch projects');
         }
@@ -84,8 +84,8 @@ describe('/api/projects', () => {
       formData.append('title', 'New Project');
       formData.append('description', 'New Description');
       formData.append('mainImage', '0');
-      formData.append('images', mockImageFile as any, 'image.jpg');
-      formData.append('video', mockVideoFile as any, 'video.mp4');
+      formData.append('images', mockImageFile as unknown as Blob, 'image.jpg');
+      formData.append('video', mockVideoFile as unknown as Blob, 'video.mp4');
 
       const req = {
         formData: () => Promise.resolve(formData),

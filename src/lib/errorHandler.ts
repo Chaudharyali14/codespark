@@ -26,7 +26,7 @@ export class DatabaseError extends ApiError {
   }
 }
 
-export function withErrorHandler<T extends (...args: any[]) => any>(
+export function withErrorHandler<T extends (...args: unknown[]) => Promise<NextResponse>>(
   handler: T
 ): (...args: Parameters<T>) => Promise<NextResponse> {
   return async (...args: Parameters<T>) => {

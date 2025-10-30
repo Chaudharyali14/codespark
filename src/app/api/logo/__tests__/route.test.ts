@@ -9,7 +9,7 @@ jest.mock('@/lib/prisma', () => ({
 
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (data: any, init?: { status?: number }) => {
+    json: (data: unknown, init?: { status?: number }) => {
       return {
         status: init?.status || 200,
         json: () => Promise.resolve(data),
@@ -20,7 +20,7 @@ jest.mock('next/server', () => ({
 }));
 
 jest.mock('@/lib/errorHandler', () => ({
-    withErrorHandler: (handler: any) => handler,
+    withErrorHandler: (handler: Function) => handler,
     NotFoundError: class extends Error {
         constructor(message: string) {
             super(message);

@@ -4,9 +4,14 @@
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 
+interface DataItem {
+  id: number;
+  [key: string]: string | number;
+}
+
 interface AdminTableProps {
   columns: string[];
-  data: any[];
+  data: DataItem[];
   editHrefBase: string;
   onDelete: (id: number) => void;
 }

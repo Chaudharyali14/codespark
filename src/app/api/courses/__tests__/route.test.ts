@@ -33,7 +33,7 @@ jest.mock('@/lib/prisma', () => ({
 }));
 
 jest.mock('@/lib/errorHandler', () => ({
-    withErrorHandler: (handler: any) => handler,
+    withErrorHandler: (handler: Function) => handler,
     DatabaseError: class extends Error {
         constructor(message: string) {
             super(message);
@@ -70,7 +70,7 @@ describe('/api/courses', () => {
         // and the error will be thrown directly.
         try {
             await GET();
-        } catch (error: any) {
+        } catch (error: Error) {
             expect(error.name).toBe('DatabaseError');
             expect(error.message).toBe('Failed to fetch courses');
         }
@@ -107,7 +107,7 @@ describe('/api/courses', () => {
         // We need to wrap the call in a try/catch block because zod will throw an error
         try {
             await POST(req);
-        } catch (error: any) {
+        } catch (error: Error) {
             expect(error.name).toBe('ZodError');
         }
     });

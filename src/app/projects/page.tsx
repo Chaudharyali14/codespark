@@ -3,12 +3,17 @@
 import { useState, useEffect } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 
+interface Media {
+  type: 'IMAGE' | 'VIDEO';
+  url: string;
+}
+
 interface Project {
   id: number;
   title: string;
   description: string;
   mainImage: string;
-  media: any[];
+  media: Media[];
 }
 
 export default function Projects() {

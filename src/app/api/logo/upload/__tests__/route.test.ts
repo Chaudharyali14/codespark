@@ -41,7 +41,7 @@ describe('/api/logo/upload', () => {
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
       };
       const formData = new FormData();
-      formData.append('logo', mockFile as any, 'test.png');
+      formData.append('logo', mockFile as unknown as Blob, 'test.png');
 
       const req = {
         formData: () => Promise.resolve(formData),
@@ -85,7 +85,7 @@ describe('/api/logo/upload', () => {
             arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
         };
         const formData = new FormData();
-        formData.append('logo', mockFile as any, 'test.png');
+        formData.append('logo', mockFile as unknown as Blob, 'test.png');
 
         const req = {
             formData: () => Promise.resolve(formData),

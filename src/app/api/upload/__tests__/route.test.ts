@@ -1,4 +1,3 @@
-
 import { POST } from '../route';
 import { NextRequest } from 'next/server';
 import { writeFile } from 'fs/promises';
@@ -9,7 +8,7 @@ jest.mock('fs/promises', () => ({
 
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: (data, init) => {
+    json: (data: unknown, init?: { status?: number }) => {
       return {
         status: init?.status || 200,
         json: () => Promise.resolve(data),
@@ -20,15 +19,18 @@ jest.mock('next/server', () => ({
 }));
 
 jest.mock('@/lib/errorHandler', () => ({
-    withErrorHandler: (handler) => handler,
+    withErrorHandler: (handler: Function) => handler,
     ValidationError: class extends Error {
-        constructor(errors, message) {
+        public errors: unknown;
+        constructor(errors: unknown, message: string) {
             super(message);
             this.name = 'ValidationError';
             this.errors = errors;
         }
     }
 }));
+
+type MockFile = Blob & { arrayBuffer: () => Promise<ArrayBuffer> };
 
 describe('/api/upload', () => {
   afterEach(() => {
@@ -37,14 +39,14 @@ describe('/api/upload', () => {
 
   describe('POST', () => {
     it('should upload two images successfully', async () => {
-      const image1 = new Blob(['image1'], { type: 'image/png' });
-      const image2 = new Blob(['image2'], { type: 'image/png' });
-      (image1 as any).arrayBuffer = () => Promise.resolve(new ArrayBuffer(0));
-      (image2 as any).arrayBuffer = () => Promise.resolve(new ArrayBuffer(0));
+      const image1 = new Blob(['image1'], { type: 'image/png' }) as MockFile;
+      const image2 = new Blob(['image2'], { type: 'image/png' }) as MockFile;
+      image1.arrayBuffer = () => Promise.resolve(new ArrayBuffer(0));
+      image2.arrayBuffer = () => Promise.resolve(new ArrayBuffer(0));
 
       const formData = new FormData();
-      formData.append('image1', image1 as any);
-      formData.append('image2', image2 as any);
+      formData.append('image1', image1);
+      formData.append('image2', image2);
 
       const req = {
         formData: () => Promise.resolve(formData),
@@ -66,9 +68,10 @@ describe('/api/upload', () => {
 
         try {
             await POST(req);
-        } catch (error) {
-            expect(error.name).toBe('ValidationError');
-            expect(error.message).toBe('Missing image files');
+        } catch (error: unknown) {
+            const err = error as Error;
+            expect(err.name).toBe('ValidationError');
+            expect(err.message).toBe('Missing image files');
         }
     });
   });
