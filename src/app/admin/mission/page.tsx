@@ -44,10 +44,16 @@ export default function MissionPage() {
 
   const columns = ['Title', 'Description'];
 
+  const data = missions.map((mission) => ({
+    id: mission.id,
+    title: mission.title,
+    description: mission.description,
+  }));
+
   return (
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Manage Missions" addHref="/admin/mission/create" />
-      <AdminTable columns={columns} data={missions} editHrefBase="/admin/mission/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/mission/edit" onDelete={handleDelete} />
     </div>
   );
 }

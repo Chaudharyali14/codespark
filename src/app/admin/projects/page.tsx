@@ -45,11 +45,17 @@ export default function ProjectsPage() {
 
   const columns = ['Title', 'Description'];
 
+  const data = projects.map((project) => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+  }));
+
   return (
     // This page is responsive because it uses the responsive AdminHeader and AdminTable components.
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Manage Projects" addHref="/admin/projects/create" />
-      <AdminTable columns={columns} data={projects} editHrefBase="/admin/projects/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/projects/edit" onDelete={handleDelete} />
     </div>
   );
 }

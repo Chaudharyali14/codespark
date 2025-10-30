@@ -44,10 +44,16 @@ export default function VisionPage() {
 
   const columns = ['Title', 'Description'];
 
+  const data = visions.map((vision) => ({
+    id: vision.id,
+    title: vision.title,
+    description: vision.description,
+  }));
+
   return (
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Manage Visions" addHref="/admin/vision/create" />
-      <AdminTable columns={columns} data={visions} editHrefBase="/admin/vision/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/vision/edit" onDelete={handleDelete} />
     </div>
   );
 }

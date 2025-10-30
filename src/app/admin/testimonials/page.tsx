@@ -46,11 +46,18 @@ export default function TestimonialsPage() {
 
   const columns = ['Quote', 'Author', 'Role'];
 
+  const data = testimonials.map((testimonial) => ({
+    id: testimonial.id,
+    quote: testimonial.quote,
+    author: testimonial.author,
+    role: testimonial.role,
+  }));
+
   return (
     // This page is responsive because it uses the responsive AdminHeader and AdminTable components.
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Manage Testimonials" addHref="/admin/testimonials/create" />
-      <AdminTable columns={columns} data={testimonials} editHrefBase="/admin/testimonials/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/testimonials/edit" onDelete={handleDelete} />
     </div>
   );
 }

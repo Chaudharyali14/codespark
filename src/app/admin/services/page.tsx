@@ -44,10 +44,16 @@ export default function ServicesPage() {
 
   const columns = ['Title', 'Description'];
 
+  const data = services.map((service) => ({
+    id: service.id,
+    title: service.title,
+    description: service.description,
+  }));
+
   return (
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Manage Services" addHref="/admin/services/create" />
-      <AdminTable columns={columns} data={services} editHrefBase="/admin/services/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/services/edit" onDelete={handleDelete} />
     </div>
   );
 }
