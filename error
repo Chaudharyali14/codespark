@@ -1,67 +1,8 @@
-17:41:07.840 Running build in Washington, D.C., USA (East) – iad1
-17:41:07.841 Build machine configuration: 2 cores, 8 GB
-17:41:08.149 Cloning github.com/Chaudharyali14/codespark (Branch: main, Commit: a8d0855)
-17:41:08.151 Previous build caches not available.
-17:41:09.942 Cloning completed: 1.792s
-17:41:10.441 Running "vercel build"
-17:41:10.874 Vercel CLI 48.6.7
-17:41:11.254 Installing dependencies...
-17:41:15.795 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-17:41:18.401 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-17:41:35.263 
-17:41:35.264 added 781 packages in 24s
-17:41:35.264 
-17:41:35.264 191 packages are looking for funding
-17:41:35.265   run `npm fund` for details
-17:41:35.308 Detected Next.js version: 15.5.4
-17:41:35.316 Running "npm run build"
-17:41:35.429 
-17:41:35.429 > codespark@0.1.0 build
-17:41:35.429 > next build --turbopack
-17:41:35.429 
-17:41:36.215 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
-17:41:36.232 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-17:41:36.232 This information is used to shape Next.js' roadmap and prioritize features.
-17:41:36.232 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-17:41:36.233 https://nextjs.org/telemetry
-17:41:36.233 
-17:41:36.285    ▲ Next.js 15.5.4 (Turbopack)
-17:41:36.286 
-17:41:36.370    Creating an optimized production build ...
-17:41:37.045 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
-17:41:44.760 (node:327) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///vercel/path0/tailwind.config.ts?id=1761828104688 is not specified and it doesn't parse as CommonJS.
-17:41:44.762 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-17:41:44.762 To eliminate this warning, add "type": "module" to /vercel/path0/package.json.
-17:41:44.764 (Use `node --trace-warnings ...` to show where the warning was created)
-17:41:52.894  ✓ Finished writing to disk in 56ms
-17:41:52.958  ✓ Compiled successfully in 15.9s
-17:41:52.965    Linting and checking validity of types ...
-17:42:00.820 
-17:42:00.821 ./src/app/api/hero/route.ts
-17:42:00.821 4:43  Warning: 'DatabaseError' is defined but never used.  @typescript-eslint/no-unused-vars
-17:42:00.821 
-17:42:00.821 ./src/app/api/projects/route.ts
-17:42:00.821 5:43  Warning: 'ValidationError' is defined but never used.  @typescript-eslint/no-unused-vars
-17:42:00.821 
-17:42:00.821 ./src/components/TestimonialCard.tsx
-17:42:00.821 3:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
-17:42:00.821 
-17:42:00.821 ./src/components/__tests__/Navbar.test.tsx
-17:42:00.821 2:10  Warning: 'act' is defined but never used.  @typescript-eslint/no-unused-vars
-17:42:00.821 
-17:42:00.822 ./src/components/homepage/ProjectCard.tsx
-17:42:00.822 13:87  Warning: 'projectUrl' is defined but never used.  @typescript-eslint/no-unused-vars
-17:42:00.822 
-17:42:00.822 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
-17:42:03.907 Failed to compile.
-17:42:03.908 
-17:42:03.909 Type error: Type 'typeof import("/vercel/path0/src/app/api/contact/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/contact/[id]">'.
-17:42:03.909   Types of property 'DELETE' are incompatible.
-17:42:03.909     Type '(request: NextRequest, { params }: { params: { id: string; }; }) => Promise<Response>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
-17:42:03.909       Types of parameters '__1' and 'context' are incompatible.
-17:42:03.909         Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
-17:42:03.909           Types of property 'params' are incompatible.
-17:42:03.909             Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
-17:42:03.909 
-17:42:03.937 Next.js build worker exited with code: 1 and signal: null
-17:42:03.962 Error: Command "npm run build" exited with 1
+Argument of type '(req: NextRequest) => Promise<NextResponse<{ message: string; }>>' is not assignable to parameter of type '(...args: unknown[]) => Promise<NextResponse<unknown>>'.
+  Types of parameters 'req' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'NextRequest'.ts(2345)
+(alias) class NextRequest
+import NextRequest
+This class extends the Web Request API with additional convenience methods.
+
+Read more: Next.js Docs: NextRequest

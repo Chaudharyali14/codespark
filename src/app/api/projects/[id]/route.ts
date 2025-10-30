@@ -7,7 +7,8 @@ const prisma = new PrismaClient();
 
 const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const { id } = params;
   const project = await prisma.project.findUnique({
     where: { id: parseInt(id) },
@@ -16,8 +17,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   return NextResponse.json(project);
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
   try {
+    const params = await paramsPromise;
     const { id } = params;
     const formData = await req.formData();
 
@@ -110,7 +112,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const { id } = params;
   await prisma.media.deleteMany({
     where: { projectId: parseInt(id) },

@@ -1,10 +1,10 @@
-// src/app/api/services/[id]/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 // Handles GET requests to /api/services/[id]
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
   try {
+    const params = await paramsPromise;
     const service = await prisma.service.findUnique({
       where: { id: parseInt(params.id) },
     });
@@ -19,8 +19,9 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // Handles PUT requests to /api/services/[id]
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
   try {
+    const params = await paramsPromise;
     const { title, description } = await req.json();
     if (!title || !description) {
       return NextResponse.json({ error: 'Title and description are required' }, { status: 400 });
@@ -40,8 +41,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // Handles DELETE requests to /api/services/[id]
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
   try {
+    const params = await paramsPromise;
     await prisma.service.delete({
       where: { id: parseInt(params.id) },
     });

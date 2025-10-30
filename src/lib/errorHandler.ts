@@ -26,7 +26,8 @@ export class DatabaseError extends ApiError {
   }
 }
 
-export function withErrorHandler<T extends (...args: unknown[]) => Promise<NextResponse>>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function withErrorHandler<T extends (...args: any[]) => Promise<NextResponse>>(
   handler: T
 ): (...args: Parameters<T>) => Promise<NextResponse> {
   return async (...args: Parameters<T>) => {
