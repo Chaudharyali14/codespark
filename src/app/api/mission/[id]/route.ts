@@ -1,17 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id);
-    const { title, description } = await req.json();
+    const { id } = await context.params; // ✅ await params (Next.js 15+)
+    const missionId = parseInt(id, 10);
+    const { title, description } = await request.json();
 
     if (!title || !description) {
-      return NextResponse.json({ error: 'Title and description are required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Title and description are required' },
+        { status: 400 }
+      );
     }
 
     const updatedMission = await prisma.mission.update({
-      where: { id },
+      where: { id: missionId },
       data: { title, description },
     });
 
@@ -22,12 +26,13 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id);
+    const { id } = await context.params; // ✅ await params
+    const missionId = parseInt(id, 10);
 
     await prisma.mission.delete({
-      where: { id },
+      where: { id: missionId },
     });
 
     return new NextResponse(null, { status: 204 });
