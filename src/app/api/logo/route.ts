@@ -1,17 +1,12 @@
 // src/app/api/logo/route.ts
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import prisma from '@/lib/prisma';
+import { withErrorHandler, NotFoundError } from '@/lib/errorHandler';
 
-const dataFilePath = path.join(process.cwd(), 'data.json');
-
-export async function GET() {
-  try {
-    const data = await fs.readFile(dataFilePath, 'utf-8');
-    const { logoUrl } = JSON.parse(data);
-    return NextResponse.json({ logoUrl });
-  } catch (error) {
-    // If data.json doesn't exist or there's an error, return a default logo
-    return NextResponse.json({ logoUrl: '/logo.png' });
+export const GET = withErrorHandler(async () => {
+  const siteSettings = await prisma.siteSettings.findFirst();
+  if (!siteSettings) {
+    throw new NotFoundError('No site settings found.');
   }
-}
+  return NextResponse.json({ logoUrl: siteSettings.logo });
+});

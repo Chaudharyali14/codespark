@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CodeSpark
+
+CodeSpark is a full-stack web application built with Next.js, Prisma, and Tailwind CSS. It is designed to be a platform for a coding-related business or educational institution, providing features for course management, student enrollment, project showcases, and more.
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Database Setup](#database-setup)
+  - [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
+
+## Features
+
+- **Course Management:** Create, read, update, and delete courses.
+- **Student Enrollment:** Students can apply for courses.
+- **Project Showcase:** Display a portfolio of projects with images and videos.
+- **Content Management:** Manage site content such as testimonials, services, vision, and mission.
+- **Admin Dashboard:** A dedicated dashboard for administrators to manage the site.
+- **Responsive Design:** The application is fully responsive and works on all screen sizes.
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/)
+- **ORM:** [Prisma](https://www.prisma.io/)
+- **Database:** [MySQL](https://www.mysql.com/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components:** [React](https://reactjs.org/)
+- **Schema Validation:** [Zod](https://zod.dev/)
+- **Testing:** [Jest](https://jestjs.io/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- **Linting:** [ESLint](https://eslint.org/)
+- **Package Manager:** [npm](https://www.npmjs.com/)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Node.js](https://nodejs.org/en/) (v20 or later)
+- [npm](https://www.npmjs.com/)
+- [MySQL](https://www.mysql.com/)
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd codespark
+    ```
+3.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+### Database Setup
+
+1.  Create a `.env.local` file in the root of the project.
+2.  Add your MySQL database connection URL to the `.env.local` file:
+    ```
+    DATABASE_URL="mysql://<user>:<password>@<host>:<port>/<database>"
+    ```
+3.  Run the Prisma migrations to create the database schema:
+    ```bash
+    npx prisma migrate dev
+    ```
+4.  (Optional) Seed the database with initial data from `data.json`:
+    ```bash
+    npx ts-node prisma/migrate-data.ts
+    ```
+
+### Running the Application
+
+1.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+2.  Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Project Structure
+
+```
+codespark/
+├── .next/
+├── node_modules/
+├── prisma/
+│   ├── schema.prisma
+│   └── migrate-data.ts
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── (pages)/
+│   │   └── layout.tsx
+│   ├── components/
+│   └── lib/
+├── .gitignore
+├── next.config.ts
+├── package.json
+├── README.md
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **`prisma/`**: Contains the Prisma schema and a script to migrate data.
+-   **`src/app/`**: Contains the pages and API routes of the application.
+-   **`src/components/`**: Contains reusable React components.
+-   **`src/lib/`**: Contains utility functions, constants, and the Prisma client instance.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The API endpoints are located in `src/app/api/`. They provide a RESTful interface for a variety of resources.
 
-## Learn More
+-   `/api/courses`: GET, POST
+-   `/api/courses/[id]`: GET, PUT, DELETE
+-   `/api/students`: GET, POST
+-   `/api/projects`: GET, POST
+-   ...and more.
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy this application is to use [Vercel](https://vercel.com/), the creators of Next.js.

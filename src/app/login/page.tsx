@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '../admin/context/AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +20,7 @@ export default function LoginPage() {
 
     // For now, let's use hardcoded credentials
     if (email === 'admin@example.com' && password === 'password') {
-      sessionStorage.setItem('isLoggedIn', 'true');
-      router.push('/admin');
+      login();
     } else {
       setError('Invalid email or password.');
     }
@@ -29,7 +28,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+      <div className="max-w-(--breakpoint-xl) m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div>
             <span className="text-2xl font-bold">Logo</span>

@@ -1,3 +1,15 @@
 {
-  "logoUrl": "/images/logo4.png"
+  "logoUrl": "/images/logo.png",
+  "hero": {
+    "title": "Welcome to CodeSpark Solution",
+    "subtitle": "Your journey to code mastery starts here.",
+    "mainImage": "/images/mainImage.png",
+    "secondImage": "/images/secondImage.png"
+  },
+  "services": [
+    {
+      "title": "rgfvdfv",
+      "description": "vfvdfvdfvf"
+    }
+  ]
 }

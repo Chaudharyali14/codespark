@@ -10,7 +10,7 @@ interface CourseCardProps {
 const CourseCard: React.FC<CourseCardProps> = ({ id, name, description, price }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden border border-border-subtle flex flex-col transition-shadow hover:shadow-xl">
-      <div className="p-6 flex-grow">
+      <div className="p-6 grow">
         <h3 className="text-2xl font-bold text-primary mb-2">{name}</h3>
         <p className="text-neutral-dark mb-4">{description || 'No description available.'}</p>
       </div>

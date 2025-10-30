@@ -70,13 +70,13 @@ const StudentForm = () => {
         const data = await response.json();
         setStatus(data.error || 'Failed to submit application.');
       }
-    } catch (error) {
+    } catch {
       setStatus('An error occurred.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg border border-border-subtle">
+    <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg border border-border-subtle" data-testid="student-form">
       <h2 className="text-3xl font-bold text-primary mb-6">Apply for a Course</h2>
       
       <div className="mb-4">

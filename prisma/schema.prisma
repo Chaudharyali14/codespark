@@ -126,6 +126,8 @@ model Media {
 model SiteSettings {
   id         Int      @id @default(autoincrement())
   logo       String
+  heroTitle  String
+  heroSubtitle String
   heroImage1 String?
   heroImage2 String?
   createdAt  DateTime @default(now())

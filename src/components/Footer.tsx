@@ -84,8 +84,8 @@ export default function Footer() {
                   Contact Info
                 </h3>
                 <div className="mt-4 space-y-4 text-base text-neutral-light">
-                  <p>123 CodeSpark Street<br />Tech City, TC 12345</p>
-                  <p>Phone: (555) 123-4567</p>
+                  <p>CodeSpark Soft Solutions<br />Sialkot Bypass Road, near Attock pump<br />Jinnah Road, Gujranwala, 52250</p>
+                  <p>Phone: 03393 585858</p>
                   <p>Email: info@codespark.com</p>
                 </div>
               </div>

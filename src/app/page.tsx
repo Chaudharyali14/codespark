@@ -1,94 +1,69 @@
-import CourseCard from '@/components/CourseCard';
-import MissionCard from '@/components/MissionCard';
-import VisionCard from '@/components/VisionCard';
-import ProjectCard from '@/components/ProjectCard';
-import ServiceCard from '@/components/ServiceCard';
-import StudentForm from '@/components/StudentForm';
+import prisma from '@/lib/prisma';
+import HeroSection from '@/components/homepage/HeroSection';
+import ServicesSection from '@/components/homepage/ServicesSection';
+import CoursesSection from '@/components/homepage/CoursesSection';
+import ProjectsSection from '@/components/homepage/ProjectsSection';
+import TestimonialsSection from '@/components/homepage/TestimonialsSection';
+import MissionVisionSection from '@/components/homepage/MissionVisionSection';
 
-export default function Home() {
+async function getHomepageData() {
+  try {
+    const siteSettings = await prisma.siteSettings.findFirst();
+    const services = await prisma.service.findMany({ take: 3 });
+    const courses = await prisma.course.findMany({ take: 3 });
+    const projects = await prisma.project.findMany({ take: 3, orderBy: { createdAt: 'desc' } });
+    const testimonials = await prisma.testimonial.findMany({ take: 3 });
+    const missions = await prisma.mission.findMany({ take: 3 });
+    const visions = await prisma.vision.findMany({ take: 3 });
+
+    return {
+      siteSettings,
+      services,
+      courses,
+      projects,
+      testimonials,
+      missions,
+      visions,
+    };
+  } catch (error) {
+    console.error('Failed to fetch homepage data:', error);
+    return {
+      siteSettings: null,
+      services: [],
+      courses: [],
+      projects: [],
+      testimonials: [],
+      missions: [],
+      visions: [],
+    };
+  }
+}
+
+export default async function Home() {
+  const data = await getHomepageData();
+
   return (
-    <div className="min-h-screen bg-neutral-light">
-      {/* Hero Section */}
-      <section className="bg-primary text-text-primary-dark py-20">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">Welcome to Our Platform</h1>
-          <p className="text-xl">Discover courses, projects, and more.</p>
-        </div>
-      </section>
+    <div className="min-h-screen bg-gray-100">
+      {data.siteSettings && (
+        <HeroSection
+          title={data.siteSettings.heroTitle}
+          subtitle={data.siteSettings.heroSubtitle}
+          mainImage={data.siteSettings.heroImage1 || ''}
+          secondImage={data.siteSettings.heroImage2 || ''}
+        />
+      )}
 
-      {/* Courses Section */}
-      <section className="py-16 bg-neutral-light">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-primary mb-8 text-center">Our Courses</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <CourseCard id={1} name="Web Development" description="Learn to build modern web applications." price={5000} />
-            <CourseCard id={2} name="Data Science" description="Master data analysis and machine learning." price={7000} />
-            <CourseCard id={3} name="Mobile App Development" description="Create apps for iOS and Android." price={6000} />
-          </div>
-        </div>
-      </section>
+      {data.services && data.services.length > 0 && <ServicesSection services={data.services} />}
 
-      {/* Mission and Vision Section */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-text-primary-dark mb-8 text-center">Our Mission & Vision</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <MissionCard title="Our Mission" description="To provide quality education and empower learners worldwide." />
-            <VisionCard title="Our Vision" description="To be the leading platform for innovative learning experiences." />
-          </div>
-        </div>
-      </section>
+      {data.courses && data.courses.length > 0 && <CoursesSection courses={data.courses} />}
 
-      {/* Projects Section */}
-      <section className="py-16 bg-neutral-light">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-primary mb-8 text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ProjectCard
-              id={1}
-              title="E-commerce Website"
-              description="A full-stack e-commerce platform built with Next.js."
-              media={{ type: 'IMAGE', url: '/next.svg' }}
-              projectUrl="https://example.com"
-            />
-            <ProjectCard
-              id={2}
-              title="Data Dashboard"
-              description="Interactive dashboard for data visualization."
-              media={null}
-              projectUrl="https://example.com"
-            />
-            <ProjectCard
-              id={3}
-              title="Mobile App"
-              description="Cross-platform mobile application."
-              media={{ type: 'IMAGE', url: '/vercel.svg' }}
-              projectUrl="https://example.com"
-            />
-          </div>
-        </div>
-      </section>
+      {data.projects && data.projects.length > 0 && <ProjectsSection projects={data.projects} />}
 
-      {/* Services Section */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-text-primary-dark mb-8 text-center">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard title="Consulting" description="Expert advice on technology solutions." />
-            <ServiceCard title="Development" description="Custom software development services." />
-            <ServiceCard title="Training" description="Workshops and training programs." />
-          </div>
-        </div>
-      </section>
+      {data.testimonials && data.testimonials.length > 0 && <TestimonialsSection testimonials={data.testimonials} />}
 
-      {/* Student Form Section */}
-      <section className="py-16 bg-neutral-light">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-center">
-            <StudentForm />
-          </div>
-        </div>
-      </section>
+      {data.missions && data.missions.length > 0 && data.visions && data.visions.length > 0 && (
+        <MissionVisionSection missions={data.missions} visions={data.visions} />
+      )}
     </div>
   );
 }

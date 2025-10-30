@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
-  const isAdminPage = pathname === '/admin';
+  const isAdminPage = pathname.startsWith('/admin');
 
   return (
     <html lang="en" suppressHydrationWarning>

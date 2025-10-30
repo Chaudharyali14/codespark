@@ -19,8 +19,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ id, title, description, media
             <Image
               src={media.url}
               alt={title}
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: 'cover' }}
             />
           ) : (
             <video
