@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import { useAuth } from '../admin/context/AuthContext';
+import { useRouter } from 'next/navigation'; // Import useRouter
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
+  const router = useRouter(); // Initialize useRouter
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Make handleSubmit async
     e.preventDefault();
     setError('');
 
@@ -18,11 +20,26 @@ export default function LoginPage() {
       return;
     }
 
-    // For now, let's use hardcoded credentials
-    if (email === 'admin@example.com' && password === 'password') {
-      login();
-    } else {
-      setError('Invalid email or password.');
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        login(); // Call the login context function
+        router.push('/admin'); // Redirect to admin dashboard
+      } else {
+        setError(data.error || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Login API call failed:', err);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 

@@ -1,107 +1,32 @@
-## Error Type
-Runtime Error
+Ch Ali@DESKTOP-3F694KR MINGW64 /f/codespark (main)
+$ npx prisma db seed
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
 
-## Error Message
-Failed to load external module @prisma/client: Error: Cannot find module '.prisma/client/default'
-Require stack:
-- F:\codespark\node_modules\@prisma\client\default.js
-- F:\codespark\.next\server\chunks\ssr\[root-of-the-server]__87c6ba8c._.js
-- F:\codespark\.next\server\chunks\ssr\[turbopack]_runtime.js
-- F:\codespark\.next\server\app\page.js
-- F:\codespark\node_modules\next\dist\server\require.js
-- F:\codespark\node_modules\next\dist\server\load-components.js
-- F:\codespark\node_modules\next\dist\build\utils.js
-- F:\codespark\node_modules\next\dist\build\swc\options.js
-- F:\codespark\node_modules\next\dist\build\swc\index.js
-- F:\codespark\node_modules\next\dist\build\next-config-ts\transpile-config.js
-- F:\codespark\node_modules\next\dist\server\config.js
-- F:\codespark\node_modules\next\dist\server\next.js
-- F:\codespark\node_modules\next\dist\server\lib\start-server.js
+Environment variables loaded from .env
+Running seed command `ts-node prisma/seed.ts` ...
+F:\codespark\node_modules\ts-node\src\index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+prisma/seed.ts:2:25 - error TS7016: Could not find a declaration file for module 'bcrypt'. 'F:/codespark/node_modules/bcrypt/bcrypt.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/bcrypt` if it exists or add a new declaration (.d.ts) file containing `declare module 'bcrypt';`
 
+2 import * as bcrypt from 'bcrypt';
+                          ~~~~~~~~
 
-    at __TURBOPACK__module__evaluation__ (.next\server\chunks\ssr\[root-of-the-server]__87c6ba8c._.js:15:35)
-    at __TURBOPACK__module__evaluation__ (src/lib/prisma.ts:2:1)
-    at __TURBOPACK__module__evaluation__ (src/app/page.tsx:1:1)
-    at __TURBOPACK__module__evaluation__ (src/app/page.tsx:69:1)
-    at Object.<anonymous> (.next\server\app\page.js:17:3)
+    at createTSError (F:\codespark\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (F:\codespark\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (F:\codespark\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (F:\codespark\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (F:\codespark\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (F:\codespark\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1480:32)
+    at Module._load (node:internal/modules/cjs/loader:1299:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14) {
+  diagnosticCodes: [ 7016 ]
+}
 
-## Code Frame
-  1 | // C:/Users/Ch Ali/codespark/lib/prisma.ts
-> 2 | import { PrismaClient } from '@prisma/client';
-    | ^
-  3 |
-  4 | const prisma = new PrismaClient();
-  5 |
-
-Next.js version: 15.5.4 (Turbopack)
-
-18:20:32.971 Running build in Washington, D.C., USA (East) – iad1
-18:20:32.977 Build machine configuration: 2 cores, 8 GB
-18:20:33.414 Cloning github.com/Chaudharyali14/codespark (Branch: main, Commit: e17313d)
-18:20:33.416 Previous build caches not available.
-18:20:34.631 Cloning completed: 1.215s
-18:20:35.163 Running "vercel build"
-18:20:35.564 Vercel CLI 48.6.7
-18:20:35.914 Installing dependencies...
-18:20:40.710 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-18:20:43.517 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-18:21:00.950 
-18:21:00.951 added 781 packages in 24s
-18:21:00.951 
-18:21:00.951 191 packages are looking for funding
-18:21:00.951   run `npm fund` for details
-18:21:00.992 Detected Next.js version: 15.5.4
-18:21:01.001 Running "npm run build"
-18:21:01.121 
-18:21:01.122 > codespark@0.1.0 build
-18:21:01.122 > next build --turbopack
-18:21:01.122 
-18:21:02.007 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
-18:21:02.024 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-18:21:02.025 This information is used to shape Next.js' roadmap and prioritize features.
-18:21:02.025 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-18:21:02.025 https://nextjs.org/telemetry
-18:21:02.025 
-18:21:02.079    ▲ Next.js 15.5.4 (Turbopack)
-18:21:02.080 
-18:21:02.167    Creating an optimized production build ...
-18:21:02.862 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
-18:21:11.278 (node:329) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///vercel/path0/tailwind.config.ts?id=1761830470670 is not specified and it doesn't parse as CommonJS.
-18:21:11.279 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-18:21:11.279 To eliminate this warning, add "type": "module" to /vercel/path0/package.json.
-18:21:11.279 (Use `node --trace-warnings ...` to show where the warning was created)
-18:21:19.898  ✓ Finished writing to disk in 50ms
-18:21:19.952  ✓ Compiled successfully in 17.1s
-18:21:19.961    Linting and checking validity of types ...
-18:21:28.565 
-18:21:28.566 ./src/app/api/hero/route.ts
-18:21:28.566 4:43  Warning: 'DatabaseError' is defined but never used.  @typescript-eslint/no-unused-vars
-18:21:28.567 
-18:21:28.567 ./src/app/api/projects/route.ts
-18:21:28.567 5:43  Warning: 'ValidationError' is defined but never used.  @typescript-eslint/no-unused-vars
-18:21:28.567 
-18:21:28.568 ./src/components/TestimonialCard.tsx
-18:21:28.575 3:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
-18:21:28.576 
-18:21:28.576 ./src/components/__tests__/Navbar.test.tsx
-18:21:28.576 2:10  Warning: 'act' is defined but never used.  @typescript-eslint/no-unused-vars
-18:21:28.577 
-18:21:28.577 ./src/components/homepage/ProjectCard.tsx
-18:21:28.577 13:87  Warning: 'projectUrl' is defined but never used.  @typescript-eslint/no-unused-vars
-18:21:28.579 
-18:21:28.579 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
-18:21:31.557 Failed to compile.
-18:21:31.558 
-18:21:31.558 ./src/app/admin/Dashboard.tsx:83:27
-18:21:31.558 Type error: Type '{ className: string; }' is not assignable to type 'IntrinsicAttributes'.
-18:21:31.559   Property 'className' does not exist on type 'IntrinsicAttributes'.
-18:21:31.559 
-18:21:31.559 [0m [90m 81 |[39m         [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex flex-wrap space-x-2 sm:space-x-4"[39m[33m>[39m
-18:21:31.559  [90m 82 |[39m           [33m<[39m[33mbutton[39m className[33m=[39m[32m"flex items-center bg-indigo-500 text-white px-3 sm:px-4 py-2 rounded-lg shadow hover:bg-indigo-600 transition-colors text-sm sm:text-base"[39m[33m>[39m
-18:21:31.559 [31m[1m>[22m[39m[90m 83 |[39m             [33m<[39m[33mFiPlusCircle[39m className[33m=[39m[32m"mr-2"[39m [33m/[39m[33m>[39m
-18:21:31.559  [90m    |[39m                           [31m[1m^[22m[39m
-18:21:31.559  [90m 84 |[39m             [33mAdd[39m [33mCourse[39m
-18:21:31.559  [90m 85 |[39m           [33m<[39m[33m/[39m[33mbutton[39m[33m>[39m
-18:21:31.559  [90m 86 |[39m           [33m<[39m[33mbutton[39m className[33m=[39m[32m"flex items-center bg-gray-800 text-white px-3 sm:px-4 py-2 rounded-lg shadow hover:bg-gray-900 transition-colors text-sm sm:text-base"[39m[33m>[39m[0m
-18:21:31.584 Next.js build worker exited with code: 1 and signal: null
-18:21:31.608 Error: Command "npm run build" exited with 1
+An error occurred while running the seed command:
+Error: Command failed with exit code 1: ts-node prisma/seed.ts
