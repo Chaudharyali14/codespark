@@ -6,7 +6,7 @@ import DeleteButton from './DeleteButton';
 
 interface DataItem {
   id: number;
-  [key: string]: string | number | undefined;
+  [key: string]: string | number | undefined | React.ReactElement;
 }
 
 interface AdminTableProps {
