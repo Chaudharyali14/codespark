@@ -1,100 +1,70 @@
-17:04:50.746 Running build in Washington, D.C., USA (East) – iad1
-17:04:50.747 Build machine configuration: 2 cores, 8 GB
-17:04:50.865 Cloning github.com/Chaudharyali14/codespark (Branch: main, Commit: aceb2ff)
-17:04:50.866 Previous build caches not available.
-17:04:51.608 Cloning completed: 742.000ms
-17:04:52.052 Running "vercel build"
-17:04:52.501 Vercel CLI 48.6.7
-17:04:52.912 Installing dependencies...
-17:04:57.278 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-17:04:59.861 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-17:05:17.775 
-17:05:17.775 added 781 packages in 25s
-17:05:17.776 
-17:05:17.776 191 packages are looking for funding
-17:05:17.776   run `npm fund` for details
-17:05:17.825 Detected Next.js version: 15.5.4
-17:05:17.834 Running "npm run build"
-17:05:17.950 
-17:05:17.951 > codespark@0.1.0 build
-17:05:17.951 > next build --turbopack
-17:05:17.952 
-17:05:18.746 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
-17:05:18.763 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-17:05:18.764 This information is used to shape Next.js' roadmap and prioritize features.
-17:05:18.764 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-17:05:18.764 https://nextjs.org/telemetry
-17:05:18.765 
-17:05:18.822    ▲ Next.js 15.5.4 (Turbopack)
-17:05:18.823 
-17:05:18.915    Creating an optimized production build ...
-17:05:19.593 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
-17:05:27.759 (node:336) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///vercel/path0/tailwind.config.ts?id=1761825927685 is not specified and it doesn't parse as CommonJS.
-17:05:27.760 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-17:05:27.761 To eliminate this warning, add "type": "module" to /vercel/path0/package.json.
-17:05:27.761 (Use `node --trace-warnings ...` to show where the warning was created)
-17:05:36.098  ✓ Finished writing to disk in 51ms
-17:05:36.156  ✓ Compiled successfully in 16.6s
-17:05:36.165    Linting and checking validity of types ...
-17:05:44.637 
-17:05:44.638 Failed to compile.
-17:05:44.638 
-17:05:44.638 ./src/app/admin/__tests__/Dashboard.test.tsx
-17:05:44.638 6:59  Error: Component definition is missing display name  react/display-name
-17:05:44.639 
-17:05:44.639 ./src/app/admin/__tests__/Page.test.tsx
-17:05:44.639 6:59  Error: Component definition is missing display name  react/display-name
-17:05:44.639 
-17:05:44.639 ./src/app/admin/components/AdminTable.tsx
-17:05:44.639 9:9  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.640 
-17:05:44.640 ./src/app/api/courses/__tests__/route.test.ts
-17:05:44.640 36:33  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.640 73:25  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.640 110:25  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.640 
-17:05:44.640 ./src/app/api/hero/route.ts
-17:05:44.641 4:43  Warning: 'DatabaseError' is defined but never used.  @typescript-eslint/no-unused-vars
-17:05:44.641 
-17:05:44.641 ./src/app/api/logo/__tests__/route.test.ts
-17:05:44.641 12:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.641 23:33  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.641 
-17:05:44.641 ./src/app/api/logo/upload/__tests__/route.test.ts
-17:05:44.642 44:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.642 88:45  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.642 
-17:05:44.642 ./src/app/api/projects/__tests__/route.test.ts
-17:05:44.642 87:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.642 88:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.643 
-17:05:44.643 ./src/app/api/projects/route.ts
-17:05:44.643 5:43  Warning: 'ValidationError' is defined but never used.  @typescript-eslint/no-unused-vars
-17:05:44.643 
-17:05:44.643 ./src/app/api/upload/__tests__/route.test.ts
-17:05:44.643 42:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.644 43:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.644 46:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.644 47:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.644 
-17:05:44.644 ./src/app/projects/page.tsx
-17:05:44.645 11:10  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.645 
-17:05:44.645 ./src/components/TestimonialCard.tsx
-17:05:44.645 3:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
-17:05:44.645 
-17:05:44.646 ./src/components/__tests__/Navbar.test.tsx
-17:05:44.646 2:10  Warning: 'act' is defined but never used.  @typescript-eslint/no-unused-vars
-17:05:44.647 
-17:05:44.647 ./src/components/homepage/ProjectCard.tsx
-17:05:44.647 13:87  Warning: 'projectUrl' is defined but never used.  @typescript-eslint/no-unused-vars
-17:05:44.647 
-17:05:44.647 ./src/components/homepage/TestimonialsSection.tsx
-17:05:44.648 21:80  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
-17:05:44.648 
-17:05:44.648 ./src/lib/errorHandler.ts
-17:05:44.648 29:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.648 29:64  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-17:05:44.648 
-17:05:44.649 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
-17:05:44.694 Error: Command "npm run build" exited with 1
+17:17:53.566 Running build in Washington, D.C., USA (East) – iad1
+17:17:53.567 Build machine configuration: 2 cores, 8 GB
+17:17:53.698 Cloning github.com/Chaudharyali14/codespark (Branch: main, Commit: 818a57f)
+17:17:53.699 Previous build caches not available.
+17:17:54.433 Cloning completed: 735.000ms
+17:17:54.827 Running "vercel build"
+17:17:55.225 Vercel CLI 48.6.7
+17:17:55.619 Installing dependencies...
+17:18:00.198 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+17:18:02.845 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+17:18:19.490 
+17:18:19.491 added 781 packages in 24s
+17:18:19.491 
+17:18:19.492 191 packages are looking for funding
+17:18:19.492   run `npm fund` for details
+17:18:19.536 Detected Next.js version: 15.5.4
+17:18:19.544 Running "npm run build"
+17:18:19.657 
+17:18:19.658 > codespark@0.1.0 build
+17:18:19.658 > next build --turbopack
+17:18:19.658 
+17:18:20.454 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: ⚙️  enable debug logging with { debug: true }
+17:18:20.471 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+17:18:20.471 This information is used to shape Next.js' roadmap and prioritize features.
+17:18:20.472 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+17:18:20.472 https://nextjs.org/telemetry
+17:18:20.472 
+17:18:20.525    ▲ Next.js 15.5.4 (Turbopack)
+17:18:20.526 
+17:18:20.612    Creating an optimized production build ...
+17:18:21.299 [dotenv@17.2.3] injecting env (0) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+17:18:29.051 (node:327) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///vercel/path0/tailwind.config.ts?id=1761826708907 is not specified and it doesn't parse as CommonJS.
+17:18:29.052 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+17:18:29.053 To eliminate this warning, add "type": "module" to /vercel/path0/package.json.
+17:18:29.053 (Use `node --trace-warnings ...` to show where the warning was created)
+17:18:37.302  ✓ Finished writing to disk in 49ms
+17:18:37.360  ✓ Compiled successfully in 16.1s
+17:18:37.367    Linting and checking validity of types ...
+17:18:45.809 
+17:18:45.809 Failed to compile.
+17:18:45.810 
+17:18:45.810 ./src/app/api/courses/__tests__/route.test.ts
+17:18:45.810 36:33  Error: The `Function` type accepts any function-like value.
+17:18:45.810 Prefer explicitly defining any function parameters and return type.  @typescript-eslint/no-unsafe-function-type
+17:18:45.810 
+17:18:45.811 ./src/app/api/hero/route.ts
+17:18:45.811 4:43  Warning: 'DatabaseError' is defined but never used.  @typescript-eslint/no-unused-vars
+17:18:45.811 
+17:18:45.811 ./src/app/api/logo/__tests__/route.test.ts
+17:18:45.811 23:33  Error: The `Function` type accepts any function-like value.
+17:18:45.812 Prefer explicitly defining any function parameters and return type.  @typescript-eslint/no-unsafe-function-type
+17:18:45.812 
+17:18:45.812 ./src/app/api/projects/route.ts
+17:18:45.812 5:43  Warning: 'ValidationError' is defined but never used.  @typescript-eslint/no-unused-vars
+17:18:45.812 
+17:18:45.812 ./src/app/api/upload/__tests__/route.test.ts
+17:18:45.813 22:33  Error: The `Function` type accepts any function-like value.
+17:18:45.813 Prefer explicitly defining any function parameters and return type.  @typescript-eslint/no-unsafe-function-type
+17:18:45.813 
+17:18:45.813 ./src/components/TestimonialCard.tsx
+17:18:45.813 3:8  Warning: 'Image' is defined but never used.  @typescript-eslint/no-unused-vars
+17:18:45.813 
+17:18:45.814 ./src/components/__tests__/Navbar.test.tsx
+17:18:45.814 2:10  Warning: 'act' is defined but never used.  @typescript-eslint/no-unused-vars
+17:18:45.814 
+17:18:45.814 ./src/components/homepage/ProjectCard.tsx
+17:18:45.814 13:87  Warning: 'projectUrl' is defined but never used.  @typescript-eslint/no-unused-vars
+17:18:45.814 
+17:18:45.815 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+17:18:45.862 Error: Command "npm run build" exited with 1

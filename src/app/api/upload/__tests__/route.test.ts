@@ -19,7 +19,7 @@ jest.mock('next/server', () => ({
 }));
 
 jest.mock('@/lib/errorHandler', () => ({
-    withErrorHandler: (handler: Function) => handler,
+    withErrorHandler: (handler: (...args: unknown[]) => unknown) => handler,
     ValidationError: class extends Error {
         public errors: unknown;
         constructor(errors: unknown, message: string) {

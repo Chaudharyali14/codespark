@@ -33,7 +33,7 @@ jest.mock('@/lib/prisma', () => ({
 }));
 
 jest.mock('@/lib/errorHandler', () => ({
-    withErrorHandler: (handler: Function) => handler,
+    withErrorHandler: (handler: (...args: unknown[]) => unknown) => handler,
     DatabaseError: class extends Error {
         constructor(message: string) {
             super(message);
