@@ -1,10 +1,13 @@
 // src/app/api/logo/upload/route.ts
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import fs from 'fs/promises';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 
-const publicFolderPath = path.join(process.cwd(), 'public');
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(req: Request) {
   try {
@@ -15,14 +18,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'No file uploaded' });
     }
 
-    const fileExtension = path.extname(file.name);
-    const newFileName = `logo${fileExtension}`;
-    const filePath = path.join(publicFolderPath, 'images', newFileName);
-
     const fileBuffer = await file.arrayBuffer();
-    await fs.writeFile(filePath, Buffer.from(fileBuffer));
+    const mime = file.type;
+    const encoding = 'base64';
+    const base64Data = Buffer.from(fileBuffer).toString('base64');
+    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
 
-    const imageUrl = `/images/${newFileName}`;
+    const result = await cloudinary.uploader.upload(fileUri, {
+      folder: 'codespark',
+    });
+
+    const imageUrl = result.secure_url;
 
     const siteSettings = await prisma.siteSettings.findFirst();
 

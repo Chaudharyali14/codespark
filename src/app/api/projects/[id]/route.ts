@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
 import fs from 'fs/promises';
 import path from 'path';
-
-const prisma = new PrismaClient();
 
 const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 

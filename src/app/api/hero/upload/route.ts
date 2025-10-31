@@ -1,10 +1,13 @@
 // src/app/api/hero/upload/route.ts
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import fs from 'fs/promises';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 
-const publicFolderPath = path.join(process.cwd(), 'public');
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(req: Request) {
   try {
@@ -20,23 +23,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'Invalid image type' }, { status: 400 });
     }
 
-    const fileExtension = path.extname(file.name);
-    const newFileName = `${imageType}Image${fileExtension}`;
-    const imagesDir = path.join(publicFolderPath, 'images');
-    const filePath = path.join(imagesDir, newFileName);
-
-    // Ensure the images directory exists
-    try {
-      await fs.mkdir(imagesDir, { recursive: true });
-    } catch (mkdirError) {
-      console.error('Failed to create images directory:', mkdirError);
-      return NextResponse.json({ success: false, error: 'Failed to create upload directory' }, { status: 500 });
-    }
-
     const fileBuffer = await file.arrayBuffer();
-    await fs.writeFile(filePath, Buffer.from(fileBuffer));
+    const mime = file.type;
+    const encoding = 'base64';
+    const base64Data = Buffer.from(fileBuffer).toString('base64');
+    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
 
-    const imageUrl = `/images/${newFileName}`;
+    const result = await cloudinary.uploader.upload(fileUri, {
+      folder: 'codespark',
+    });
+
+    const imageUrl = result.secure_url;
 
     const siteSettings = await prisma.siteSettings.findFirst();
     const data = imageType === 'main' ? { heroImage1: imageUrl } : { heroImage2: imageUrl };

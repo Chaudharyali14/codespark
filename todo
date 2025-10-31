@@ -1,8 +1,53 @@
- * Test Coverage: The test coverage is quite low. Only two components are tested. There are no tests for the API routes.
-   * Component Structure: The homepage directory inside components suggests that there might be some large components that could be broken down
-     into smaller, more reusable components.
-   * Styling: I haven't seen any styling code, but I've seen tailwind.config.ts, so it's likely using Tailwind CSS. The quality of the styling is
-     unknown.
-   * State Management: I haven't seen any state management library (like Redux or Zustand). For a small project, this is fine, but for a larger
-     project, it might be necessary.
-   * CI/CD: There is no CI/CD pipeline set up. 
+Project Setup & Deployment:
+
+Push Next.js project to GitHub professionally (with .gitignore, commit commands, and environment variable handling).
+
+Use Neon Serverless Postgres as the database.
+
+Use Prisma ORM for database communication.
+
+Deploy the project on Vercel with proper environment variable setup.
+
+Dynamic Content Management:
+
+Build an admin panel (Next.js route) where an admin can upload or update:
+
+Website logo (image file)
+
+Hero section background (can be image or video)
+
+Headings or description text dynamically
+
+Store all uploaded files (images/videos) in Cloudinary and their URLs in Neon Postgres.
+
+Frontend Display:
+
+Hero section should automatically fetch and render the updated logo/image/video from the database (without redeploying).
+
+Professional Practices:
+
+Explain folder structure for src/app/api routes (upload/update endpoints).
+
+Show example Prisma schema models for Settings or HeroSection.
+
+Include secure .env variable handling (for Neon DB, Cloudinary, JWT, etc.).
+
+Handle ESLint + TypeScript rules properly (avoid disabling rules; use correct types).
+
+Extra:
+
+Provide all necessary git commands for pushing code to GitHub (git init, add, commit, push, etc.).
+
+Show example next.config.mjs for production-ready deployment (with image domains and eslint config).
+
+Make sure the admin upload form uses Next.js API route or server action securely.
+
+Output should be professional, production-grade, beginner-friendly, and based on Next.js + Prisma + Neon + Cloudinary + Vercel stack.
+
+
+
+
+
+
+
+

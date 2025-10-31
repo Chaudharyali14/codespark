@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 async function getVisionData() {
   const vision = await prisma.vision.findFirst();
   return vision;

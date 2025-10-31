@@ -3,11 +3,29 @@ import prisma from '@/lib/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
 
+interface Media {
+  id: number;
+  type: string;
+  url: string;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  projectUrl: string | null;
+  mainImage: string | null;
+  video: string | null;
+  media: Media[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface PortfolioPageProps {
   params: Promise<{ id: string }>;
 }
 
-async function getProject(id: string) {
+async function getProject(id: string): Promise<Project> {
   const project = await prisma.project.findUnique({
     where: { id: parseInt(id) },
     include: { media: true },
@@ -22,7 +40,7 @@ async function getProject(id: string) {
 
 export default async function PortfolioPage({ params }: PortfolioPageProps) {
   const { id } = await params;
-  const project = await getProject(id);
+  const project: Project = await getProject(id);
 
   return (
     <div className="min-h-screen bg-gray-100 py-12">
@@ -59,7 +77,7 @@ export default async function PortfolioPage({ params }: PortfolioPageProps) {
             <div className="px-8 pb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">Project Gallery</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {project.media.map((media) => (
+                {project.media.map((media: Media) => (
                   <div key={media.id} className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden">
                     {media.type === 'IMAGE' ? (
                       <Image

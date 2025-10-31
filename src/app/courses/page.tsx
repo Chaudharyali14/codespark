@@ -2,7 +2,14 @@
 import prisma from '@/lib/prisma';
 import CourseCard from '@/components/CourseCard';
 
-async function getCourses() {
+interface Course {
+  id: number;
+  name: string;
+  description: string | null;
+  price: number;
+}
+
+async function getCourses(): Promise<Course[]> {
   try {
     const courses = await prisma.course.findMany();
     return courses;
@@ -21,7 +28,7 @@ export default async function CoursesPage() {
         <h1 className="text-4xl font-bold text-center mb-8 text-primary">Our Courses</h1>
         {courses.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course) => (
+            {courses.map((course: Course) => (
               <CourseCard
                 key={course.id}
                 id={course.id}

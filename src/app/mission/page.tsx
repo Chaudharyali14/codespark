@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 async function getMissionData() {
   const mission = await prisma.mission.findFirst();
   return mission;
