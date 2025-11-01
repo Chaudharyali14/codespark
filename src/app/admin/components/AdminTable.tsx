@@ -3,23 +3,17 @@
 
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
-
 import ViewButton from './ViewButton';
 
-interface DataItem {
-  id: number;
-  [key: string]: string | number | undefined | React.ReactElement;
-}
-
-interface AdminTableProps {
+interface AdminTableProps<T extends { id: number; [key: string]: string | number | React.ReactElement }> {
   columns: string[];
-  data: DataItem[];
+  data: T[];
   editHrefBase: string;
   onDelete: (id: number) => void;
-  onView?: (item: any) => void;
+  onView?: (item: T) => void;
 }
 
-export default function AdminTable({ columns, data, editHrefBase, onDelete, onView }: AdminTableProps) {
+export default function AdminTable<T extends { id: number; [key: string]: string | number | React.ReactElement }>({ columns, data, editHrefBase, onDelete, onView }: AdminTableProps<T>) {
   return (
     // Responsive container; table becomes horizontally scrollable on smaller screens
     <div className="bg-white rounded-lg shadow-md p-4 sm:p-8 overflow-x-auto">

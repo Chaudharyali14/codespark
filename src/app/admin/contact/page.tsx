@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -18,6 +17,7 @@ export default function ContactPage() {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Fetch messages from API
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -33,6 +33,7 @@ export default function ContactPage() {
     fetchMessages();
   }, []);
 
+  // Delete handler
   const handleDelete = async (id: number) => {
     try {
       const res = await fetch(`/api/contact/${id}`, {
@@ -47,6 +48,7 @@ export default function ContactPage() {
     }
   };
 
+  // View message handler
   const handleViewMessage = (message: Message) => {
     setSelectedMessage(message);
     setIsModalOpen(true);
@@ -54,22 +56,34 @@ export default function ContactPage() {
 
   const columns = ['Name', 'Email', 'Message'];
 
+  // Shorten message text for table display
   const data = messages.map((message) => ({
     ...message,
     message: message.message.length > 50 ? `${message.message.substring(0, 50)}...` : message.message,
   }));
 
   return (
-    // This page is responsive because it uses the responsive AdminHeader, AdminTable, and Modal components.
     <div className="container mx-auto px-4 py-8">
-      <AdminHeader title="Contact Messages" addHref={''} />
-      <AdminTable columns={columns} data={data} editHrefBase="/admin/contact/edit" onDelete={handleDelete} onView={handleViewMessage} />
+      <AdminHeader title="Contact Messages" addHref="" />
+      
+      {/*  FIX: Type cast added here */}
+      <AdminTable
+        columns={columns}
+        data={data}
+        editHrefBase="/admin/contact/edit"
+        onDelete={handleDelete}
+        onView={(item) => handleViewMessage(item as Message)} // Fixes build error
+      />
+
       {selectedMessage && (
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title={`Message from ${selectedMessage.name}`}>
-          <p><strong>Email:</strong> {selectedMessage.email}</p>
+          title={`Message from ${selectedMessage.name}`}
+        >
+          <p>
+            <strong>Email:</strong> {selectedMessage.email}
+          </p>
           <p className="mt-4">{selectedMessage.message}</p>
         </Modal>
       )}
