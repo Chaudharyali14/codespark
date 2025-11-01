@@ -94,7 +94,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-gray-700 pt-8">
           <p className="text-base text-neutral-light xl:text-center">
-            &copy; 2024 CodeSpark. All rights reserved.
+            &copy; 2025 CodeSpark. All rights reserved.
           </p>
         </div>
       </div>
