@@ -16,7 +16,7 @@ interface AdminTableProps {
   data: DataItem[];
   editHrefBase: string;
   onDelete: (id: number) => void;
-  onView?: (item: DataItem) => void;
+  onView?: (item: any) => void;
 }
 
 export default function AdminTable({ columns, data, editHrefBase, onDelete, onView }: AdminTableProps) {
