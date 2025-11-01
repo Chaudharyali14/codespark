@@ -1,0 +1,8 @@
+2025-11-01 12:32:23.466 [error] Failed to upload image: Error: Must supply api_key
+    at <unknown> (.next/server/chunks/[root-of-the-server]__0db3befd._.js:1:38976)
+    at r.sign_request (.next/server/chunks/[root-of-the-server]__0db3befd._.js:1:62402)
+    at r.process_request_params (.next/server/chunks/[root-of-the-server]__0db3befd._.js:1:63087)
+    at C (.next/server/chunks/[root-of-the-server]__0db3befd._.js:3:40135)
+    at r.upload (.next/server/chunks/[root-of-the-server]__0db3befd._.js:3:36544)
+    at t.<computed> [as upload] (.next/server/chunks/[root-of-the-server]__0db3befd._.js:3:289)
+    at w (.next/server/chunks/[root-of-the-server]__3e655073._.js:1:2354)
