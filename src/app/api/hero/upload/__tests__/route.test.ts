@@ -1,19 +1,19 @@
 import { POST } from '../route';
 import prisma from '@/lib/prisma';
-import fs from 'fs/promises';
+import cloudinary from '@/lib/cloudinary';
 import { NextRequest } from 'next/server';
-
-
-jest.mock('fs/promises', () => ({
-  mkdir: jest.fn(),
-  writeFile: jest.fn(),
-}));
 
 jest.mock('@/lib/prisma', () => ({
   siteSettings: {
     findFirst: jest.fn(),
     update: jest.fn(),
     create: jest.fn(),
+  },
+}));
+
+jest.mock('@/lib/cloudinary', () => ({
+  uploader: {
+    upload: jest.fn(),
   },
 }));
 
@@ -42,7 +42,7 @@ describe('/api/hero/upload', () => {
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
       };
       const formData = new FormData();
-      formData.append('image', mockFile, 'test.jpg');
+      formData.append('image', mockFile as unknown as Blob, 'test.jpg');
       formData.append('imageType', 'main');
 
       const req = {
@@ -50,18 +50,18 @@ describe('/api/hero/upload', () => {
       } as unknown as NextRequest;
 
       (prisma.siteSettings.findFirst as jest.Mock).mockResolvedValue({ id: 1 });
+      (cloudinary.uploader.upload as jest.Mock).mockResolvedValue({ secure_url: 'http://cloudinary.com/image.jpg' });
 
       const response = await POST(req);
       const body = await response.json();
 
       expect(response.status).toBe(200);
       expect(body.success).toBe(true);
-      expect(body.filePath).toBe('/images/mainImage.jpg');
-      expect(fs.mkdir).toHaveBeenCalledWith(expect.any(String), { recursive: true });
-      expect(fs.writeFile).toHaveBeenCalled();
+      expect(body.filePath).toBe('http://cloudinary.com/image.jpg');
+      expect(cloudinary.uploader.upload).toHaveBeenCalled();
       expect(prisma.siteSettings.update).toHaveBeenCalledWith({
         where: { id: 1 },
-        data: { heroImage1: '/images/mainImage.jpg' },
+        data: { heroImage1: 'http://cloudinary.com/image.jpg' },
       });
     });
 
@@ -87,7 +87,7 @@ describe('/api/hero/upload', () => {
             arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
         };
         const formData = new FormData();
-        formData.append('image', mockFile, 'test.jpg');
+        formData.append('image', mockFile as unknown as Blob, 'test.jpg');
 
         const req = {
             formData: () => Promise.resolve(formData),
@@ -108,7 +108,7 @@ describe('/api/hero/upload', () => {
             arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
         };
         const formData = new FormData();
-        formData.append('image', mockFile, 'test.jpg');
+        formData.append('image', mockFile as unknown as Blob, 'test.jpg');
         formData.append('imageType', 'main');
 
         const req = {

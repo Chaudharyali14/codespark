@@ -52,32 +52,23 @@ export default function ContactPage() {
     setIsModalOpen(true);
   };
 
-  const columns = ['Name', 'Email', 'Message', 'Actions'];
+  const columns = ['Name', 'Email', 'Message'];
 
   const data = messages.map((message) => ({
     ...message,
     message: message.message.length > 50 ? `${message.message.substring(0, 50)}...` : message.message,
-    actions: (
-      <button
-        onClick={() => handleViewMessage(message)}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-      >
-        View Message
-      </button>
-    ),
   }));
 
   return (
     // This page is responsive because it uses the responsive AdminHeader, AdminTable, and Modal components.
     <div className="container mx-auto px-4 py-8">
       <AdminHeader title="Contact Messages" addHref={''} />
-      <AdminTable columns={columns} data={data} editHrefBase="/admin/contact/edit" onDelete={handleDelete} />
+      <AdminTable columns={columns} data={data} editHrefBase="/admin/contact/edit" onDelete={handleDelete} onView={handleViewMessage} />
       {selectedMessage && (
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title={`Message from ${selectedMessage.name}`}
-        >
+          title={`Message from ${selectedMessage.name}`}>
           <p><strong>Email:</strong> {selectedMessage.email}</p>
           <p className="mt-4">{selectedMessage.message}</p>
         </Modal>

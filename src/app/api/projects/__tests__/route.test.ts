@@ -1,15 +1,7 @@
 import { GET, POST } from '../route';
 import prisma from '@/lib/prisma';
-import fs from 'fs';
+import cloudinary from '@/lib/cloudinary';
 import { NextRequest } from 'next/server';
-
-jest.mock('fs', () => ({
-  existsSync: jest.fn(),
-  mkdirSync: jest.fn(),
-  promises: {
-    writeFile: jest.fn(),
-  },
-}));
 
 jest.mock('@/lib/prisma', () => ({
   project: {
@@ -19,6 +11,12 @@ jest.mock('@/lib/prisma', () => ({
   },
   media: {
     create: jest.fn(),
+  },
+}));
+
+jest.mock('@/lib/cloudinary', () => ({
+  uploader: {
+    upload: jest.fn(),
   },
 }));
 
@@ -92,15 +90,16 @@ describe('/api/projects', () => {
       } as unknown as NextRequest;
 
       (prisma.project.create as jest.Mock).mockResolvedValue(mockProject);
-      (prisma.project.update as jest.Mock).mockResolvedValue({ ...mockProject, mainImage: '/uploads/image.jpg' });
+      (cloudinary.uploader.upload as jest.Mock).mockResolvedValue({ secure_url: 'http://cloudinary.com/image.jpg' });
+      (prisma.project.update as jest.Mock).mockResolvedValue({ ...mockProject, mainImage: 'http://cloudinary.com/image.jpg' });
 
       const response = await POST(req);
       const body = await response.json();
 
       expect(response.status).toBe(200);
-      expect(body.mainImage).toBe('/uploads/image.jpg');
+      expect(body.mainImage).toBe('http://cloudinary.com/image.jpg');
       expect(prisma.project.create).toHaveBeenCalledWith({ data: { title: 'New Project', description: 'New Description' } });
-      expect(fs.promises.writeFile).toHaveBeenCalledTimes(2);
+      expect(cloudinary.uploader.upload).toHaveBeenCalledTimes(2);
       expect(prisma.media.create).toHaveBeenCalledTimes(2);
       expect(prisma.project.update).toHaveBeenCalledTimes(1);
     });

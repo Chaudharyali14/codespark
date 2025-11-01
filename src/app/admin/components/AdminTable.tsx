@@ -4,6 +4,8 @@
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 
+import ViewButton from './ViewButton';
+
 interface DataItem {
   id: number;
   [key: string]: string | number | undefined | React.ReactElement;
@@ -14,9 +16,10 @@ interface AdminTableProps {
   data: DataItem[];
   editHrefBase: string;
   onDelete: (id: number) => void;
+  onView?: (item: DataItem) => void;
 }
 
-export default function AdminTable({ columns, data, editHrefBase, onDelete }: AdminTableProps) {
+export default function AdminTable({ columns, data, editHrefBase, onDelete, onView }: AdminTableProps) {
   return (
     // Responsive container; table becomes horizontally scrollable on smaller screens
     <div className="bg-white rounded-lg shadow-md p-4 sm:p-8 overflow-x-auto">
@@ -51,6 +54,7 @@ export default function AdminTable({ columns, data, editHrefBase, onDelete }: Ad
 
               <td className="py-3 px-6 text-center">
                 <div className="flex items-center justify-center">
+                  {onView && <ViewButton onView={() => onView(item)} />}
                   <EditButton href={`${editHrefBase}/${item.id}`} />
                   <DeleteButton onDelete={() => onDelete(item.id)} />
                 </div>

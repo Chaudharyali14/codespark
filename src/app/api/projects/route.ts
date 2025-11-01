@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import fs from 'fs';
-import path from 'path';
+import cloudinary from '@/lib/cloudinary';
 import { withErrorHandler, DatabaseError, ValidationError } from '@/lib/errorHandler';
 import { z } from 'zod';
 
-const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-async function writeFile(file: File) {
+async function uploadFile(file: File) {
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = Date.now() + '-' + file.name;
-  const filepath = path.join(uploadDir, filename);
-  await fs.promises.writeFile(filepath, buffer);
-  return `/uploads/${filename}`;
+  const mime = file.type;
+  const encoding = 'base64';
+  const base64Data = buffer.toString('base64');
+  const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
+
+  const result = await cloudinary.uploader.upload(fileUri, {
+    folder: 'codespark',
+    resource_type: file.type.startsWith('video') ? 'video' : 'image',
+  });
+  return result.secure_url;
 }
 
 const projectSchema = z.object({
@@ -46,8 +45,8 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
     throw new DatabaseError('Failed to create project');
   }
 
-  const imagePaths = await Promise.all(images.map(writeFile));
-  const videoPath = video ? await writeFile(video) : '';
+  const imagePaths = await Promise.all(images.map(uploadFile));
+  const videoPath = video ? await uploadFile(video) : '';
 
   for (const imagePath of imagePaths) {
     await prisma.media.create({

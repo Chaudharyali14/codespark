@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import fs from 'fs/promises';
-import path from 'path';
+import cloudinary from '@/lib/cloudinary';
 
-const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+async function uploadFile(file: File) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const mime = file.type;
+  const encoding = 'base64';
+  const base64Data = buffer.toString('base64');
+  const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
+
+  const result = await cloudinary.uploader.upload(fileUri, {
+    folder: 'codespark',
+    resource_type: file.type.startsWith('video') ? 'video' : 'image',
+  });
+  return result.secure_url;
+}
 
 export async function GET(req: NextRequest, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
   const params = await paramsPromise;
@@ -35,13 +46,6 @@ export async function PUT(req: NextRequest, { params: paramsPromise }: { params:
 
     const videoFile = formData.get('video') as File;
 
-    // Ensure upload directory exists
-    try {
-      await fs.mkdir(uploadDir, { recursive: true });
-    } catch (error) {
-      console.error('Failed to create upload directory:', error);
-    }
-
     // Delete existing media
     await prisma.media.deleteMany({
       where: { projectId: parseInt(id) },
@@ -51,22 +55,15 @@ export async function PUT(req: NextRequest, { params: paramsPromise }: { params:
     const imageUrls: string[] = [];
     for (const imageFile of imageFiles) {
       if (imageFile.size > 0) {
-        const fileName = `${Date.now()}-${imageFile.name}`;
-        const filePath = path.join(uploadDir, fileName);
-        const buffer = await imageFile.arrayBuffer();
-        await fs.writeFile(filePath, Buffer.from(buffer));
-        imageUrls.push(`/uploads/${fileName}`);
+        const imageUrl = await uploadFile(imageFile);
+        imageUrls.push(imageUrl);
       }
     }
 
     // Save video if provided
     let videoUrl = '';
     if (videoFile && videoFile.size > 0) {
-      const fileName = `${Date.now()}-${videoFile.name}`;
-      const filePath = path.join(uploadDir, fileName);
-      const buffer = await videoFile.arrayBuffer();
-      await fs.writeFile(filePath, Buffer.from(buffer));
-      videoUrl = `/uploads/${fileName}`;
+      videoUrl = await uploadFile(videoFile);
     }
 
     // Create media records

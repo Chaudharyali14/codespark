@@ -35,7 +35,7 @@ describe('ContactPage', () => {
     render(<ContactPage />);
 
     await waitFor(() => {
-        const viewButtons = screen.getAllByRole('button', { name: 'View Message' });
+        const viewButtons = screen.getAllByRole('button', { name: 'View' });
         fireEvent.click(viewButtons[0]);
     });
     
