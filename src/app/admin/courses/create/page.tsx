@@ -22,7 +22,7 @@ export default function CreateCoursePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, description, price }),
+        body: JSON.stringify({ name, description, price: parseFloat(price) }),
       });
 
       if (res.ok) {
